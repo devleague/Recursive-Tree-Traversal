@@ -1,9 +1,5 @@
-
-/*global require, module,  __dirname */
 /*jslint node: true */
-
 'use strict';
-// var traverse = {};
 
 function Traverse(data){
   this.tree = data;
@@ -15,6 +11,9 @@ function Traverse(data){
  */
 
 // Traverse.prototype.getAllNames = function(){};
+
+
+
 
 /* exports the Class Traverse */
 module.exports = Traverse;

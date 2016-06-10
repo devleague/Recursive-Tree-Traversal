@@ -7,15 +7,12 @@
     "test": "test"
   },
   "dependencies": {
-    "chai": "^1.9.1",
-    "gulp": "^3.8.8",
-    "gulp-mocha": "^1.1.0",
-    "gulp-util": "^3.0.1",
-    "gulp-watch": "^1.0.3"
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "gulp"
+    "test": "mocha -w -b"
   },
   "author": "rayrfarias@gmail.com",
   "license": "ISC"

@@ -1,27 +1,27 @@
 var chai = require('chai');
 var expect = chai.expect;
 var tree = require('../tree');
-var Traverse = require('../traverse');
+var TraverseClass = require('../Traverse');
 
-var traverse = new Traverse(tree);
+var bootstrappedTree = new TraverseClass(tree);
 
 describe('Validation', function(){
   describe('Traversal Object', function () {
 
     it('should be an instance of itself', function () {
-      expect(traverse).to.be.an.instanceOf(Traverse);
+      expect(bootstrappedTree).to.be.an.instanceOf(TraverseClass);
     });
 
     it('should take a data structure and set it as a property on itself', function () {
-      expect(traverse.tree).to.not.be.undefined;
-      expect(traverse.tree).to.be.an('object');
+      expect(bootstrappedTree.tree).to.not.be.undefined;
+      expect(bootstrappedTree.tree).to.be.an('object');
     });
   }); // ends traversal object describe
 }); // ends validation describe
 
 describe('Traversing a Tree', function () {
   describe('Methods should exist', function () {
-    var methodList = [
+    [
       'getAllNames',
       'getAllAges',
       'getLeafNames',
@@ -30,16 +30,21 @@ describe('Traversing a Tree', function () {
       'findAllParentsAges',
       'findName',
       'findAge'
-    ];
-
-    for (var i = 0; i < methodList.length; i++) {
-      checkMethodExistance(traverse, methodList[i]);
-    }
+    ].forEach((method) => {
+      it(method + ' should be defined and be a Function', function () {
+        expect(bootstrappedTree[method]).to.not.be.undefined;
+        expect(bootstrappedTree[method]).to.a.instanceOf(Function);
+      });
+    });
 
   });// ends methods exists describe
 
   describe('Method getAllNames', function () {
-    var results = traverse.getAllNames();
+    var results;
+
+    beforeEach(function(){
+      results = bootstrappedTree.getAllNames();
+    });
 
     it('should return an array of strings', function () {
       expect(results).to.be.an('array');
@@ -56,7 +61,11 @@ describe('Traversing a Tree', function () {
   }); // ends method getAllNames describe
 
   describe('Method getAllAges', function () {
-    var results = traverse.getAllAges();
+    var results;
+
+    beforeEach(function() {
+      results = bootstrappedTree.getAllAges();
+    });
 
     it('should return an array of numbers', function () {
       expect(results).to.be.an('array');
@@ -73,7 +82,11 @@ describe('Traversing a Tree', function () {
   });
 
   describe('Method getLeafNames', function () {
-    var results = traverse.getLeafNames();
+    var results;
+
+    beforeEach(function(){
+      results = bootstrappedTree.getLeafNames();
+    });
 
     var sixteen_names = [
       'Spencer Toyama',
@@ -106,11 +119,14 @@ describe('Traversing a Tree', function () {
     it('should contains all the names!', function () {
       expect(results).to.include.members(sixteen_names);
     });
-    
   }); //ends getLeafName describe
 
   describe('Method getLeafAges', function () {
-    var results = traverse.getLeafAges();
+    var results;
+
+    beforeEach(function(){
+      results = bootstrappedTree.getLeafAges();
+    });
 
     it('should be an array of numbers', function () {
       expect(results).to.be.an('array');
@@ -128,7 +144,11 @@ describe('Traversing a Tree', function () {
   }); // ends getLeafAges describe
 
   describe('Method findAllParentsNames', function () {
-    var results = traverse.findAllParentsNames();
+    var results;
+
+    beforeEach(function(){
+      results = bootstrappedTree.findAllParentsNames();
+    })
 
     it('should be an array of strings', function () {
       expect(results).to.be.an('array');
@@ -136,8 +156,8 @@ describe('Traversing a Tree', function () {
     });
 
     it('should not include leaf names', function () {
-      var leafNames = traverse.getLeafNames();
-      var result = traverse.findAllParentsNames();
+      var leafNames = bootstrappedTree.getLeafNames();
+      var result = bootstrappedTree.findAllParentsNames();
 
       expect(results).to.not.include.members(leafNames);
     });
@@ -150,7 +170,11 @@ describe('Traversing a Tree', function () {
   }); // ends findAllParentsNames describe
 
   describe('Method findAllParentsAges', function () {
-    var results = traverse.findAllParentsAges();
+    var results;
+
+    beforeEach(function(){
+      results = bootstrappedTree.findAllParentsAges();
+    });
 
     it('should be an array of numbers', function () {
       expect(results).to.be.an('array');
@@ -158,8 +182,8 @@ describe('Traversing a Tree', function () {
     });
 
     it('should not include leaf ages', function () {
-      var leafAges = traverse.getLeafAges();
-      var result = traverse.findAllParentsAges();
+      var leafAges = bootstrappedTree.getLeafAges();
+      var result = bootstrappedTree.findAllParentsAges();
 
       expect(results).to.not.include.members(leafAges);
     });
@@ -169,18 +193,21 @@ describe('Traversing a Tree', function () {
 
       expect(results).to.include.members(someParentAges);
     });
-    
   });
 
   describe('Method findName', function () {
-    var person = traverse.findName('Nikola Tesla');
+    var results;
+
+    beforeEach(function(){
+      person = bootstrappedTree.findName('Nikola Tesla');
+    });
 
     it('should find Nikola Tesla', function () {
       expect(person).to.be.an('object');
       expect(person).to.have.deep.property('name', 'Nikola Tesla');
       expect(person).to.have.deep.property('age', 16);
-      expect(person).to.have.deep.property('has_parent', true);
-      expect(person).to.have.deep.property('is_leaf', true);
+      expect(person).to.have.deep.property('hasParents', true);
+      expect(person).to.have.deep.property('isLeaf', true);
       expect(person.children).to.be.empty;
     });
   }); //ends findName describe
@@ -196,12 +223,6 @@ describe('Traversing a Tree', function () {
  * **************** */
 
 // check each method by it's name
-function checkMethodExistance(tree, methodName){
-  it(methodName + ' should be defined and be a Function', function () {
-    expect(tree[methodName]).to.not.be.undefined;
-    expect(tree[methodName]).to.a.instanceOf(Function);
-  });
-}
 
 // used to the satisfy(cheezburger);
 function containsStrings(array) {
