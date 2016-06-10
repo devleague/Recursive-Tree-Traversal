@@ -8,7 +8,7 @@ Build a Class with methods that can traverse a tree. Each method should return a
 4. `getLeafAges` returns an Array with only the values of the Age property from nodes that are leafs.
 5. `findAllParentsNames` returns an array of names that belong to all non-leaf nodes.
 6. `findAllParentsAges` returns an array of ages that belong to all non-leaf nodes.
-7. `findName(String)` finds a node by it's name property and returns that entire object. e.g. `{name: 'Roger Moore', has_parent: true, is_leaf: false, children: []}`
+7. `findName(String)` finds a node by it's name property and returns that entire object. e.g. `{name: 'Roger Moore', hasParent: true, isLeaf: false, children: []}`
 8. `findAge` do not implement this but please declare it on the Traverse prototype chain so that the first few tests pass.
 
 This tree is in `JSON` format.
@@ -23,8 +23,8 @@ This tree is in `JSON` format.
   children: [     // An Array of Objects that look contain more nodes.
     {         // Nodes are objects that look similar to this object.
       name: "Sean Connery",
-      has_parent: true,
-      has_children: false,
+      hasParent: true,
+      hasChildren: false,
       children: []
     }
   ]
@@ -33,7 +33,7 @@ This tree is in `JSON` format.
 ````
 # Get Started
 1. fork and clone this repo
-2. run the command `npm install`
-3. run `gulp` to keep your tasks running
-4. do work inside of `traverse.js`
-5. make each test pass in order (important as some tests rely on working code)
+2. install dependencies: `npm install`
+3. run you tests: `npm test`
+4. do your work in the file: `traverse.js`
+5. write code that passes each test in order.
