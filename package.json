@@ -12,7 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -w -b"
   },
   "author": "rayrfarias@gmail.com",
   "license": "ISC"
