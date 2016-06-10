@@ -32,7 +32,6 @@ describe('Traversing a Tree', function () {
       'findAge'
     ].forEach((method) => {
       it(method + ' should be defined and be a Function', function () {
-        console.log('foreEach!')
         expect(bootstrappedTree[method]).to.not.be.undefined;
         expect(bootstrappedTree[method]).to.a.instanceOf(Function);
       });
