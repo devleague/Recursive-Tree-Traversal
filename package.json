@@ -12,7 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "gulp"
+    "test": "mocha"
   },
   "author": "rayrfarias@gmail.com",
   "license": "ISC"
